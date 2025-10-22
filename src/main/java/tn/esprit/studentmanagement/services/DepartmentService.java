@@ -1,5 +1,6 @@
 package tn.esprit.studentmanagement.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.studentmanagement.entities.Department;
@@ -20,7 +21,8 @@ public class DepartmentService implements IDepartmentService {
 
     @Override
     public Department getDepartmentById(Long idDepartment) {
-        return departmentRepository.findById(idDepartment).get();
+        return departmentRepository.findById(idDepartment).orElseThrow(() -> new EntityNotFoundException("Department not found with id: " + idDepartment));
+
     }
 
     @Override
